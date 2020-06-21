@@ -6,17 +6,68 @@ background-repeat: no-repeat;
 height: 100%;
 }
 
+.alert_card_sign_up{
+height: 50px;
+margin-top: -50px;
+margin-bottom: auto;
+width: 400px;
+color: #721c24;
+background-color: #f8d7da;
+border-color: #f5c6cb;
+border-radius: .25rem;
+text-align: center;
+vertical-align: middle;
+display: table-cell;
+}
+
+.alert_card_login{
+height: 50px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+color: #721c24;
+background-color: #f8d7da;
+border-color: #f5c6cb;
+border-radius: .25rem;
+text-align: center;
+
+}
+
 .container{
 height: 100%;
 align-content: center;
 }
 
-.card{
+.card_login{
 height: 270px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
 background-color: rgba(0,0,0,0.5) !important;
+border-radius: .25rem;  
+}
+
+.card_login_with_alert_login{
+height: 300px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+}
+
+.card_login_with_alert_sign_up{
+height: 300px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+}
+
+.card_sign_up{
+height: 300px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
+border-radius: .25rem;  
 }
 
 .card-header h3{
