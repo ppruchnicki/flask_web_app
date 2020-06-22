@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">
+  Welcome, {{name}} in notes section!
+</h1>
+<div class="container">
+    <div class="card-body">
+        <a href="{{ url_for('notes.add_note') }}" type="add" class="btn float-ribtn login_btn">Add</a>
+    </div>
+    <div class="card-body">    
+        <ul>
+            {% for note in notes %}
+                <li style="font-size: 30pt; color: white"> {{ note.title}}
+                    <a href="{{ url_for('notes.delete_note', id=note.id) }}" type="delete" class="btn float-ribtn float-right login_btn">Delete</a>
+                    <a href="{{ url_for('notes.edit_note', id=note.id) }}" type="edit" class="btn float-ribtn float-right login_btn">Edit</a>
+                </li>
+                <li style="font-size: 20pt; color: white"> {{ note.text}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

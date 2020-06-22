@@ -40,6 +40,7 @@ def signup_post():
     db.session.add(new_user)
     db.session.commit()
 
+    flash('You have succesfully registerd! You may now login.')
     return redirect(url_for('auth.login'))
 
 @auth.route('/login', methods=['POST'])

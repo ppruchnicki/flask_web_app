@@ -32,4 +32,8 @@ def create_app():
     from flask_web_app.main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
+    # blueprint for notes part of app
+    from flask_web_app.notes import notes as notes_blueprint
+    app.register_blueprint(notes_blueprint)
+
     return app
