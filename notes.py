@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_web_app.app import db
 from flask_web_app.models import Note
 from flask_login import login_required, current_user
@@ -29,6 +29,7 @@ def post_note():
     db.session.add(new_note)
     db.session.commit()
 
+    flash('You have successfully added a note.')
     return redirect(url_for('notes.show_notes'))
 
 @notes.route('/delete_note/<id>')
@@ -42,6 +43,7 @@ def delete_note(id):
     db.session.delete(note)
     db.session.commit()
 
+    flash('You have successfully deleted the note.')
     return redirect(url_for('notes.show_notes'))
 
 @notes.route('/edit_note/<id>')
@@ -54,15 +56,13 @@ def edit_note(id):
 @notes.route('/edit_note/<id>/update', methods=['POST'])
 @login_required
 def update_note(id):
+    note = Note.query.filter_by(id=int(id)).first()
 
-    if request.method == 'POST':
-        note = Note.query.filter_by(id=int(id)).first()
+    note.title = request.form.get('title')
+    note.text = request.form.get('text')
+    db.session.commit()
 
-        note.title = request.form.get('title')
-        note.text = request.form.get('text')
-        db.session.commit()
-        #flash('You have successfully edited note.')
-
-        return redirect(url_for('notes.show_notes'))
+    flash('You have successfully edited the note.')
+    return redirect(url_for('notes.show_notes'))
 
 

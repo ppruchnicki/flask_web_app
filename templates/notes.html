@@ -5,6 +5,13 @@
   Welcome, {{name}} in notes section!
 </h1>
 <div class="container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-success" role="alert">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
     <div class="card-body">
         <a href="{{ url_for('notes.add_note') }}" type="add" class="btn float-ribtn login_btn">Add</a>
     </div>
@@ -12,12 +19,28 @@
         <ul>
             {% for note in notes %}
                 <li style="font-size: 30pt; color: white"> {{ note.title}}
-                    <a href="{{ url_for('notes.delete_note', id=note.id) }}" type="delete" class="btn float-ribtn float-right login_btn">Delete</a>
+                    <button type="button" class="btn float-ribtn float-right login_btn" data-toggle="modal" data-target="#deleteModal{{ note.id }}">Delete</button>
                     <a href="{{ url_for('notes.edit_note', id=note.id) }}" type="edit" class="btn float-ribtn float-right login_btn">Edit</a>
                 </li>
                 <li style="font-size: 20pt; color: white"> {{ note.text}}</li>
+                <!-- Modal -->
+                    <div class="modal fade" id="deleteModal{{ note.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Delete note?</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <a href="{{ url_for('notes.delete_note', id=note.id) }}" type="delete" class="btn btn-danger">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             {% endfor %}
         </ul>
     </div>
-</div>
 {% endblock %}
