@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_web_app.app import db
-from flask_web_app.models import Note
+from flask_web_app.app import db, Note
 from flask_login import login_required, current_user
 
 notes = Blueprint('notes', __name__)
