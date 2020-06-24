@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-success" role="alert">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('todos.post_todo') }}">
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" name="text" class="form-control" placeholder="todo">	
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn float-right login_btn">
+            </div>
+        </form>
+    </div>
+    <div class="card-body">    
+        {% for todo in todos %}
+            {% if todo.done == false %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" style="font-size: 30pt; color: white; background-color: transparent;">
+                    <a href="{{ url_for('todos.check_todo', id=todo.id) }}" type="check"><i class="far fa-circle"></i></a> 
+                    <a href="#editModal{{ todo.id }}" style="color: white;" data-toggle="modal" data-target="#editModal{{ todo.id }}" type="edit" >{{ todo.text}}</a>
+                    <button type="button" class="btn float-ribtn float-right login_btn" data-toggle="modal" data-target="#deleteModal{{ todo.id }}">Delete</button>
+                </li>
+            </ul>
+            {% endif %}
+            <!-- Modal edit-->
+                <div class="modal fade" id="editModal{{ todo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="POST" action="{{ url_for('todos.update_todo', id=todo.id) }}">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Update todo?</h5>
+                                    <input type="text" name="text" class="form-control" value="{{todo.text}}">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" value="Submit" class="btn float-right login_btn">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <!-- Modal delete-->
+            <div class="modal fade" id="deleteModal{{ todo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete todo?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a href="{{ url_for('todos.delete_todo', id=todo.id) }}" type="delete" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if true in todos|map(attribute="done") %}
+        <h2 class="title" style="font-size: 40pt; color: white;">
+            Completed
+        </h2>
+        {% endif %}
+        {% for todo in todos %}
+            {% if todo.done == true %}
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item" style="font-size: 30pt; color: white; background-color: transparent;">
+                    <a href="{{ url_for('todos.uncheck_todo', id=todo.id) }}" type="uncheck" ><i class="fas fa-check-circle"></i></a> 
+                    <a href="#editModal{{ todo.id }}" style="text-decoration: line-through; color: white" data-toggle="modal" data-target="#editModal{{ todo.id }}" type="edit"0>{{ todo.text}}</a>
+                    <button type="button" class="btn float-ribtn float-right login_btn" data-toggle="modal" data-target="#deleteModal{{ todo.id }}">Delete</button>
+                </li>
+            </ul>
+            {% endif %}
+            <!-- Modal edit-->
+                <div class="modal fade" id="editModal{{ todo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form method="POST" action="{{ url_for('todos.update_todo', id=todo.id) }}">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Update todo?</h5>
+                                    <input type="text" name="text" class="form-control" value="{{todo.text}}">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <input type="submit" value="Submit" class="btn float-right login_btn">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            <!-- Modal delete-->
+            <div class="modal fade" id="deleteModal{{ todo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Delete todo?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <a href="{{ url_for('todos.delete_todo', id=todo.id) }}" type="delete" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

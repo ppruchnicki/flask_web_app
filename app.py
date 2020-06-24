@@ -62,3 +62,7 @@ app.register_blueprint(main_blueprint)
 # blueprint for notes part of app
 from flask_web_app.notes import notes as notes_blueprint
 app.register_blueprint(notes_blueprint)
+
+# blueprint for todos part of app
+from flask_web_app.todos import todos as todos_blueprint
+app.register_blueprint(todos_blueprint)

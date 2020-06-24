@@ -28,7 +28,7 @@
           <a class="nav-link" href="{{ url_for('notes.show_notes') }}">Notes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('main.profile') }}">Todos</a>
+          <a class="nav-link" href="{{ url_for('todos.show_todos') }}">Todos</a>
         </li>
         {% endif %}
         {% if not current_user.is_authenticated %}
