@@ -1,5 +1,5 @@
 ## Quick start
-1. Install all dependencies in virtual environment `pipenv install -e`
+1. Install all dependencies in virtual environment `pipenv install --dev`
 2. Run virtual environment `pipenv shell`
 3. First create db  `python3 app.py db init`
 4. Create migrations `python3 app.py db migrate`
