@@ -4,19 +4,21 @@
 <div class="container">
 	<div class="d-flex justify-content-center h-100">
 		<div class="card_login_with_alert_login">
-            {% with messages = get_flashed_messages() %}
-				{% if messages %}
-					<div class="alert alert-danger" role="alert">
-						{{ messages[0] }}
-					</div>
-				{% endif %}
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
             {% endwith %}
             <div class="card_login">
 			<div class="card-header">
 				<h3>Sign In</h3>
 			</div>
                 <div class="card-body">
-                    <form method="POST" action="/login">
+                    <form method="POST" action="{{ url_for('auth.login') }}">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>

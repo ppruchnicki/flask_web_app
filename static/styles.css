@@ -6,6 +6,7 @@ background-repeat: no-repeat;
 height: 100%;
 }
 
+
 .alert_card_sign_up{
 height: 50px;
 margin-top: -50px;
@@ -62,7 +63,7 @@ width: 400px;
 }
 
 .card_sign_up{
-height: 300px;
+height: 620px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
@@ -72,6 +73,10 @@ border-radius: .25rem;
 
 .card-header h3{
 color: white;
+}
+
+.form-control-label{
+color:white;    
 }
 
 .input-group-prepend span{

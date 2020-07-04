@@ -6,12 +6,14 @@ name = "pypi"
 [packages]
 
 [dev-packages]
-flask = "*"
+Flask = "*"
 pylint = "*"
-flask-sqlalchemy = "*"
-flask-login = "*"
-flask-migrate = "*"
-flask-script = "*"
+Flask-SQLAlchemy = "*"
+Flask-Login = "*"
+Flask-Migrate = "*"
+Flask-Script = "*"
+Flask-WTF = "*"
+email-validator = "*"
 
 [requires]
 python_version = "3.8"

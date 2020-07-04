@@ -5,8 +5,10 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_login import UserMixin
 
+
 app = Flask(__name__)
 db = SQLAlchemy(app)
+
 
 app.config['SECRET_KEY'] = '9OLWxND4odfgUy^&%ViuopO'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
