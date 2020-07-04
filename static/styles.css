@@ -40,7 +40,7 @@ align-content: center;
 }
 
 .card_login{
-height: 270px;
+height: 480px;
 margin-top: auto;
 margin-bottom: auto;
 width: 400px;
@@ -73,6 +73,10 @@ border-radius: .25rem;
 
 .card-header h3{
 color: white;
+}
+
+.form-check-label{
+color: white;    
 }
 
 .form-control-label{

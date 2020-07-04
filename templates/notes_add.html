@@ -2,22 +2,37 @@
 {% block content %}
 <div class="container">
     <div class="card-body">
-        <form method="POST" action="{{ url_for('notes.post_note') }}">
-            <div class="input-group form-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                </div>
-                <input type="text" name="title" class="form-control" placeholder="Title">	
+        <form method="POST" action="{{ url_for('notes.add_note') }}">
+            {{ form.csrf_token() }}
+            <div class="form-group">
+                {{ form.title.label(class="form-control-label") }}
+                {% if form.title.errors %}
+                    {{ form.title(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.title.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                {{ form.title(class="form-control form-control-lg", placeholder="Title") }}	
+                {% endif %}    
             </div>
-            <div class="input-group form-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                </div>
-                <input type="text" name="text" class="form-control" placeholder="Text">
+            <div class="form-group">
+                {{ form.text.label(class="form-control-label") }}
+                {% if form.text.errors %}
+                    {{ form.text(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.text.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.text(class="form-control form-control-lg", placeholder="Text") }}
+                {% endif %}
             </div>
             <div class="form-group">
                 <a href="{{ url_for('notes.show_notes') }}" type="close" class="btn btn-secondary">Close</a>
-                <input type="submit" value="Submit" class="btn float-right login_btn">
+                {{ form.submit(class="btn btn-outline-info") }}
             </div>
         </form>
     </div>

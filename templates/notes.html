@@ -5,13 +5,15 @@
   Welcome, {{name}} in notes section!
 </h1>
 <div class="container">
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="alert alert-success" role="alert">
-                {{ messages[0] }}
-            </div>
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
         {% endif %}
-    {% endwith %}
+    {% endwith %}>
     <div class="card-body">
         <a href="{{ url_for('notes.add_note') }}" type="add" class="btn float-ribtn login_btn">Add</a>
     </div>

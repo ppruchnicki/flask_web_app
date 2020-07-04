@@ -7,14 +7,6 @@ from flask_web_app.forms import RegistrationForm, LoginForm
 
 auth = Blueprint('auth', __name__)
 
-@auth.route('/login')
-def login():
-    return render_template("login.html")
-
-#@auth.route('/signup')
-#def signup():
-#    return render_template("signup.html")
-
 @auth.route('/logout')
 @login_required
 def logout():
@@ -42,20 +34,21 @@ def signup():
 
     return render_template('signup.html', title='Register', form=form)
 
-@auth.route('/login', methods=['POST'])
-def login_post():
-    email = request.form.get('email')
-    password = request.form.get('password')
-    remember = True if request.form.get('remember') else False
+@auth.route('/login', methods=['POST', 'GET'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
 
-    user = User.query.filter_by(email=email).first()
+        # check if user actually exists
+        user = User.query.filter_by(email=form.email.data).first()
+        
+        # take the user supplied password, hash it, and compare it to the hashed password in database
+        if not user or not check_password_hash(user.password, form.password.data):
+            flash('Please check your login details and try again.', 'danger')
+            return redirect(url_for('auth.login')) # if user doesn't exist or password is wrong, reload the page
 
-    # check if user actually exists
-    # take the user supplied password, hash it, and compare it to the hashed password in database
-    if not user or not check_password_hash(user.password, password):
-        flash('Please check your login details and try again.', 'danger')
-        return redirect(url_for('auth.login')) # if user doesn't exist or password is wrong, reload the page
-
-    # if the above check passes, then we know the user has the right credentials
-    login_user(user, remember=remember)
-    return redirect(url_for('main.profile'))
+        # if the above check passes, then we know the user has the right credentials
+        login_user(user, remember=form.remember.data)
+        return redirect(url_for('main.profile'))
+    
+    return render_template("login.html", title='Login', form=form)

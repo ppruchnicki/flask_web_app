@@ -20,3 +20,17 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class TodosForm(FlaskForm):
+    text = StringField('Text',
+                           validators=[DataRequired(), Length(min=2, max=100)])
+    done = BooleanField('Done')
+    submit = SubmitField('Submit')
+    
+
+class NotesForm(FlaskForm):
+    title = StringField('Title',
+                           validators=[DataRequired(), Length(min=2, max=100)])
+    text = StringField('Text',
+                            validators=[DataRequired(), Length(min=2, max=1000)])
+    submit = SubmitField('Submit')                                                  
