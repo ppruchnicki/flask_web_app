@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
     <div class="card-body">
-        <form method="POST" action="{{ url_for('notes.edit_note', id=note.id) }}">
+        <form method="POST" action="">
             {{ form.csrf_token() }}
             <div class="form-group">
                 {{ form.title.label(class="form-control-label") }}

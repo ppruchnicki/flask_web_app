@@ -5,17 +5,10 @@ from flask_web_app.forms import TodosForm
 
 todos = Blueprint('todos', __name__)
 
-@todos.route('/todos')
+
+@todos.route('/todos', methods=['POST','GET'])
 @login_required
 def show_todos():
-    form = TodosForm()
-    todos = Todo.query.filter_by(user_id=current_user.id).all()
-    return render_template("todos.html", name=current_user.name, todos=todos, form=form)
-
-
-@todos.route('/todos/add', methods=['POST','GET'])
-@login_required
-def add_todo():
     form = TodosForm()
     if form.validate_on_submit():
 
