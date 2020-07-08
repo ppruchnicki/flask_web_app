@@ -50,6 +50,8 @@ def edit_note(id):
     form = NotesForm()
     if form.validate_on_submit():
 
+        note.title = form.title.data
+        note.text = form.text.data
         db.session.commit()
 
         flash('You have successfully edited the note.','success')
