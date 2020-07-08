@@ -14,6 +14,7 @@ Flask-Migrate = "*"
 Flask-Script = "*"
 Flask-WTF = "*"
 email-validator = "*"
+flask-mail = "*"
 
 [requires]
 python_version = "3.8"

@@ -15,10 +15,10 @@
             {% endwith %}
             <div class="card_login">
 			<div class="card-header">
-				<h3>Sign In</h3>
+				<h3>Reset Password</h3>
 			</div>
                 <div class="card-body">
-                    <form method="POST" action="{{ url_for('auth.login') }}">
+                    <form method="POST" action="">
                         {{ form.csrf_token() }}
                         <fieldset class="form-group">
                             <div class="form-group">
@@ -34,36 +34,11 @@
                                     {{ form.email(class="form-control form-control-lg", placeholder="Email") }}
                                 {% endif %}
                             </div>
-                            <div class="form-group">
-                                {{ form.password.label(class="form-control-label") }}
-                                {% if form.password.errors %}
-                                    {{ form.password(class="form-control form-control-lg is-invalid") }}
-                                    <div class="invalid-feedback">
-                                        {% for error in form.password.errors %}
-                                            <span>{{ error }}</span>
-                                        {% endfor %}
-                                    </div>
-                                {% else %}
-                                    {{ form.password(class="form-control form-control-lg", placeholder="Password") }}
-                                {% endif %}
-                            </div>
-                            <div class="form-check">
-                                {{ form.remember(class="form-check-input") }}
-                                {{ form.remember.label(class="form-check-label") }}
-                            </div>
                         </fieldset>
                         <div class="form-group">
                             {{ form.submit(class="btn btn-outline-info") }}
                         </div>
-                        <small class="text-muted ml-2">
-                            <a href="{{ url_for('auth.reset_request') }}">Forgot Password?</a>
-                        </small>
                     </form>
-                    <div class="border-top pt-3">
-                        <small class="text-muted">
-                            Need An Account? <a class="ml-2" href="{{ url_for('auth.signup') }}">Sign Up Now</a>
-                        </small>
-                    </div>
                 </div>
             </div>
 		</div>

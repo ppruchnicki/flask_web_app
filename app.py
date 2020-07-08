@@ -4,13 +4,16 @@ from flask_login import LoginManager
 from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_login import UserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from flask_mail import Mail
+import os
 
 
 app = Flask(__name__)
 db = SQLAlchemy(app)
 
 
-app.config['SECRET_KEY'] = '9OLWxND4odfgUy^&%ViuopO'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 
 #db.init_app(app)
@@ -18,6 +21,13 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
 login_manager = LoginManager()
 login_manager.login_view = 'auth.login'
 login_manager.init_app(app)
+
+app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USER')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+mail = Mail(app)
 
 migrate = Migrate(app, db)
 manager = Manager(app)
@@ -43,6 +53,19 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(1000))
     notes = db.relationship("Note", backref="user", lazy="dynamic") 
     todos = db.relationship("Todo",  backref="user", lazy="dynamic")
+
+    def get_reset_token(self, expires_sec=1800):
+        s = Serializer(app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token)['user_id']
+        except:
+            return None
+        return User.query.get(user_id)
 
 if __name__ == '__main__':
     manager.run()
