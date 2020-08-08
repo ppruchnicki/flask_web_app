@@ -1,9 +1,12 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_web_app.app import User, db, mail
+from flask_web_app.app import db, mail
+from flask_web_app.models import User
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_web_app.decorators import is_confirmed
 from flask_web_app.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
 from flask_mail import Message
+import datetime
 
 
 auth = Blueprint('auth', __name__)
@@ -13,6 +16,43 @@ auth = Blueprint('auth', __name__)
 def logout():
     logout_user()
     return redirect(url_for('main.index'))
+
+@auth.route('/confirm/<token>')
+def confirm_email(token):
+    try:
+        email = User.confirm_token(token)
+        print('worked')
+    except:
+        flash('The confirmation link is invalid or has expired.', 'danger')
+    user = User.query.filter_by(email=email).first_or_404()
+    if user.confirmed:
+        flash('Account already confirmed. Please login.', 'success')
+    else:
+        user.confirmed = True
+        user.confirmed_on = datetime.datetime.now()
+        db.session.commit()
+        flash('You have confirmed your account. Thanks!', 'success')
+    return redirect(url_for('auth.login'))
+
+def send_confirmation_email(user, confirm_url):
+    msg = Message('Account confirmation',
+                  sender=('No Reply', 'noreply@demo.com'),
+                  recipients=[user.email])
+    msg.body = f'''To confirm your account, visit the following link:
+{confirm_url}
+If you did not make this request then simply ignore this email and no changes will be made.
+'''
+    mail.send(msg)
+
+@auth.route('/unconfirmed')
+@login_required
+@is_confirmed
+def unconfirmed():
+    if current_user.confirmed:
+        return redirect('main.profile')
+    #flash('Please confirm your account!', 'warning')
+    return render_template('unconfirmed.html')
+
 
 @auth.route('/signup', methods=['GET','POST'])
 def signup():
@@ -25,12 +65,22 @@ def signup():
             return redirect(url_for('auth.signup'))
 
         # create new user with the form data. Hash the password so plaintext version isn't saved.
-        new_user = User(email=form.email.data, name=form.username.data, password=generate_password_hash(form.password.data, method='sha256'))
+        new_user = User(
+                email=form.email.data, 
+                name=form.username.data, 
+                password=generate_password_hash(form.password.data, method='sha256'),
+                confirmed = False
+        )
 
         # add the new user to the database
         db.session.add(new_user)
         db.session.commit()
-        flash(f'Account created for {form.username.data}! You may now login.', 'success')
+
+        token = User.generate_confirmation_token(form.email.data)
+        confirm_url = url_for('auth.confirm_email', token=token, _external=True)
+        send_confirmation_email(new_user, confirm_url)
+
+        flash(f'Confirmation email sent for {form.username.data}! Go to your email inbox and confirm.', 'success')
         return redirect(url_for('auth.login'))
 
     return render_template('signup.html', title='Register', form=form)
@@ -50,7 +100,11 @@ def login():
 
         # if the above check passes, then we know the user has the right credentials
         login_user(user, remember=form.remember.data)
-        return redirect(url_for('main.profile'))
+
+        if current_user.confirmed:
+            return redirect(url_for('main.profile'))
+        return redirect(url_for('auth.unconfirmed'))
+        
     
     return render_template("login.html", title='Login', form=form)
 
@@ -64,6 +118,16 @@ def send_reset_email(user):
 If you did not make this request then simply ignore this email and no changes will be made.
 '''
     mail.send(msg)
+
+@auth.route('/resend')
+@login_required
+@is_confirmed
+def resend_confirmation():
+    token = User.generate_confirmation_token(current_user.email)
+    confirm_url = url_for('auth.confirm_email', token=token, _external=True)
+    send_confirmation_email(current_user, confirm_url)
+    flash('A new confirmation email has been sent.', 'success')
+    return redirect(url_for('auth.unconfirmed'))
 
 
 @auth.route("/reset_password", methods=['GET', 'POST'])

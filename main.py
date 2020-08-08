@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template
 from flask_web_app.app import db
+from flask_web_app.decorators import check_confirmed
 from flask_login import login_required, current_user
+from flask_web_app.models import User
 
 main = Blueprint('main', __name__)
 
@@ -10,5 +12,6 @@ def index():
 
 @main.route('/profile')
 @login_required
+@check_confirmed
 def profile():
     return render_template("profile.html",  name=current_user.name)

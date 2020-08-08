@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_web_app.app import db, Todo
+from flask_web_app.app import db
+from flask_web_app.models import Todo
+from flask_web_app.decorators import check_confirmed
 from flask_login import login_required, current_user
 from flask_web_app.forms import TodosForm
 
@@ -8,6 +10,7 @@ todos = Blueprint('todos', __name__)
 
 @todos.route('/todos', methods=['POST','GET'])
 @login_required
+@check_confirmed
 def show_todos():
     form = TodosForm()
     if form.validate_on_submit():
@@ -28,6 +31,7 @@ def show_todos():
 
 @todos.route('/delete_todo/<id>')
 @login_required
+@check_confirmed
 def delete_todo(id):
 
     # filter specific node
@@ -43,6 +47,7 @@ def delete_todo(id):
 
 @todos.route('/edit_todo/<id>', methods=['POST','GET'])
 @login_required
+@check_confirmed
 def edit_todo(id):
     todo = Todo.query.filter_by(id=int(id)).first()
     print(todo.text)
@@ -65,6 +70,7 @@ def edit_todo(id):
 
 @todos.route('/check/<id>')
 @login_required
+@check_confirmed
 def check_todo(id):
     todo = Todo.query.filter_by(id=int(id)).first()
 
@@ -75,6 +81,7 @@ def check_todo(id):
 
 @todos.route('/uncheck/<id>')
 @login_required
+@check_confirmed
 def uncheck_todo(id):
     todo = Todo.query.filter_by(id=int(id)).first()
 
