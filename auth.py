@@ -39,7 +39,7 @@ def send_confirmation_email(user, confirm_url):
                   sender=('No Reply', 'noreply@demo.com'),
                   recipients=[user.email])
     msg.body = f'''To confirm your account, visit the following link:
-{confirm_url}
+<a href="{confirm_url}">confirmation link</a>
 If you did not make this request then simply ignore this email and no changes will be made.
 '''
     mail.send(msg)
