@@ -21,7 +21,6 @@ def logout():
 def confirm_email(token):
     try:
         email = User.confirm_token(token)
-        print('worked')
     except:
         flash('The confirmation link is invalid or has expired.', 'danger')
     user = User.query.filter_by(email=email).first_or_404()

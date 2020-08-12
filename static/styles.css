@@ -76,6 +76,28 @@ border-radius: .25rem;
 color: white;
 }
 
+.dropdown-menu-custom{
+position: absolute;
+top: 5rem;
+left: 5rem;
+z-index: 1000;
+display: inherit;
+float: left;
+min-width: 10rem;
+width: 13rem;
+padding: .5rem 0;
+margin: .125rem 0 0;
+font-size: 1rem;
+color: white;
+text-align: left;
+list-style: none;
+background-color: darkslateblue;
+background-clip: padding-box;
+border: 1px solid rgba(0,0,0,.15);
+border-radius: .25rem; 
+border-color: white;   
+}
+
 .form-check-label{
 color: white;    
 }

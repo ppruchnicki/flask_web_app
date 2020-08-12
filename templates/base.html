@@ -22,17 +22,20 @@
       <ul class="navbar-nav mr-auto">
         {% if current_user.is_authenticated and current_user.confirmed %}
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('main.profile') }}">Profile</a>
-          </li>
-          <li class="nav-item">
             <a class="nav-link" href="{{ url_for('notes.show_notes') }}">Notes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('todos.show_todos') }}">Todos</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.profile') }}">Profile</a>
+          </li>
           {% elif current_user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('auth.unconfirmed') }}">Confirm</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('main.profile') }}">Profile</a>
           </li>
         {% endif %}
         {% if current_user.admin %}

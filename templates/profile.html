@@ -1,7 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Welcome, {{name}}!
-</h1>
+Change password section
+<div class="dropdown">
+  <div class="dropdown-menu-custom">
+    <a class="dropdown-item" href="{{ url_for('main.profile') }}">Change password</a>
+    <a class="dropdown-item" href="{{ url_for('main.profile_change_email') }}">Change email</a>
+  </div>
+</div>
+
+
+
+
 {% endblock %}

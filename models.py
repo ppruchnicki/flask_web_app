@@ -5,11 +5,12 @@ from flask_script import Manager
 from flask_migrate import Migrate, MigrateCommand
 from flask_login import UserMixin, current_user
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+from itsdangerous import BadSignature, SignatureExpired
 from flask_mail import Mail
 from flask_admin import Admin, AdminIndexView
 from flask_admin.menu import MenuLink
 from flask_admin.contrib.sqla import ModelView
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_web_app.app import db, login_manager, app
 import os
 
@@ -49,11 +50,36 @@ class User(UserMixin, db.Model):
     def is_admin(self):
         return self.admin
 
-    def generate_confirmation_token(email, expires_sec=3600):
+    def verify_password(self, password):
+        return check_password_hash(self.password, password)
+
+    def generate_confirmation_token(self, email, expires_sec=3600):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
 
-    def confirm_token(token):
+    def generate_email_change_token(self, new_email, expires_sec=3600):
+        s = Serializer(app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'change_email': self.id, 'new_email': new_email})
+
+    def change_email(self, token):
+        """Verify the new email for this user."""
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)
+        except (BadSignature, SignatureExpired):
+            return False
+        if data.get('change_email') != self.id:
+            return False
+        new_email = data.get('new_email')
+        if new_email is None:
+            return False
+        if self.query.filter_by(email=new_email).first() is not None:
+            return False
+        self.email = new_email
+        db.session.commit()
+        return True
+
+    def confirm_token(self, token):
         s = Serializer(app.config['SECRET_KEY'])
         try:
             email = s.loads(
