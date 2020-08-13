@@ -13,10 +13,19 @@ main = Blueprint('main', __name__)
 def index():
     return render_template("index.html")
 
-@main.route('/profile')
+@main.route('/profile', methods=['GET','POST'])
 @login_required
 def profile():
-    return render_template("profile.html")
+    form = ChangePasswordForm()
+    if form.validate_on_submit():
+        if current_user.verify_password(form.current_password.data):
+            current_user.password = form.new_password.data
+            db.session.commit()
+            flash('Your password has been updated.', 'success')
+            return redirect(url_for('main.profile'))
+        else:
+            flash('Original password is invalid.', 'danger')
+    return render_template("profile.html", form=form)
 
 @main.route('/confirm/change-email/<token>')
 @login_required
@@ -32,7 +41,7 @@ def confirm_email_change(token):
             db.session.commit()
             flash('You have confirmed your account. Thanks!', 'success')
     else:
-        flash('The confirmation link is invalid or has expired.', 'error')
+        flash('The confirmation link is invalid or has expired.', 'danger')
     return redirect(url_for('main.profile_change_email'))
 
 def send_email_change_confirmation_email(new_email, confirm_url):

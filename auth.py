@@ -101,7 +101,7 @@ def login():
         login_user(user, remember=form.remember.data)
 
         if current_user.confirmed:
-            return redirect(url_for('main.profile'))
+            return redirect(url_for('main.index'))
         return redirect(url_for('auth.unconfirmed'))
         
     

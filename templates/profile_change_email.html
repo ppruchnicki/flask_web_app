@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-Change mail section
+
 <div class="dropdown">
   <div class="dropdown-menu-custom">
-    <a class="dropdown-item" href="{{ url_for('main.profile') }}">Change password</a>
-    <a class="dropdown-item" href="{{ url_for('main.profile_change_email') }}">Change email</a>
+    <a class="dropdown-item-custom" href="{{ url_for('main.profile') }}">Change password</a>
+    <a class="dropdown-item-custom" href="{{ url_for('main.profile_change_email') }}">Change email</a>
   </div>
 </div>
 
@@ -22,7 +22,7 @@ Change mail section
                     {% endfor %}
                 {% endif %}
             {% endwith %}
-			<div class="card_sign_up">
+			<div class="card_email">
 			<div class="card-header">
 				<h3>Change Email</h3>
 			</div>
