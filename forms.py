@@ -26,6 +26,11 @@ class TodosForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=100)])
     done = BooleanField('Done')
     submit = SubmitField('Submit')
+
+class UpdateTodosForm(FlaskForm):
+    new_text = StringField('Text',
+                           validators=[DataRequired(), Length(min=2, max=100)])
+    submit_edition = SubmitField('Submit')
     
 
 class NotesForm(FlaskForm):

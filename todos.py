@@ -50,11 +50,8 @@ def delete_todo(id):
 @check_confirmed
 def edit_todo(id):
     todo = Todo.query.filter_by(id=int(id)).first()
-    print(todo.text)
     form = TodosForm()
-    print(form.text.data)
     if form.validate_on_submit():
-        print("into if")
 
         todo.text = form.text.data
         db.session.commit()
@@ -63,7 +60,6 @@ def edit_todo(id):
         return redirect(url_for('todos.show_todos'))
     elif request.method == 'GET':
         form.text.data = todo.text
-        print("into elif")
     
     todos = Todo.query.filter_by(user_id=current_user.id).all()
     return render_template("todos.html", name=current_user.name, todos=todos, form=form)

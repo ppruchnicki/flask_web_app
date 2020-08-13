@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Welcome, {{name}} in notes section!
-</h1>
 <div class="container">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
@@ -15,7 +12,7 @@
         {% endif %}
     {% endwith %}
     <div class="card-body">
-        <a href="{{ url_for('notes.add_note') }}" type="add" class="btn float-ribtn login_btn">Add</a>
+        <a href="{{ url_for('notes.add_note') }}" type="add" class="btn btn-outline-info btn-lg btn-block">Add</a>
     </div>
     <div class="card-body">    
         <ul>

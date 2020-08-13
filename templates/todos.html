@@ -27,7 +27,7 @@
                 {% endif %}
             </div>
             <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}
+                {{ form.submit(class="btn btn-outline-primary btn-lg btn-block") }}
             </div>
         </form>
     </div>
@@ -35,10 +35,10 @@
         {% for todo in todos %}
             {% if todo.done == false %}
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" style="font-size: 30pt; color: white; background-color: transparent;">
+                <li class="list-group-item" style="font-size: 20pt; color: white; background-color: transparent;">
                     <a href="{{ url_for('todos.check_todo', id=todo.id) }}" type="check"><i class="far fa-circle"></i></a> 
-                    <a href="#editModal{{ todo.id }}" style="color: white;" data-toggle="modal" data-target="#editModal{{ todo.id }}" type="edit" >{{ todo.text}}</a>
-                    <button type="button" class="btn float-ribtn float-right login_btn" data-toggle="modal" data-target="#deleteModal{{ todo.id }}">Delete</button>
+                    <a href="#editModal{{ todo.id }}" style="text-decoration: none; color: white;" data-toggle="modal" data-target="#editModal{{ todo.id }}" type="edit" >{{ todo.text}}</a>
+                    <button type="button" class="btn float-ribtn float-right btn-outline-primary" data-toggle="modal" data-target="#deleteModal{{ todo.id }}">Delete</button>
                 </li>
             </ul>
             {% endif %}
@@ -46,7 +46,7 @@
                 <div class="modal fade" id="editModal{{ todo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form method="POST" action="">
+                            <form method="POST" action="{{ url_for('todos.edit_todo', id=todo.id) }}">
                                 {{ form.csrf_token() }}
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Update todo?</h5>
@@ -58,7 +58,9 @@
                                             {% endfor %}
                                         </div>
                                     {% else %}
-                                        {{ form.text(class="form-control form-control-lg", value=todo.text) }}
+                                        <div class="modal-content">
+                                            {{ form.text(class="form-control form-control-lg", value=todo.text) }}
+                                        </div>
                                     {% endif %}                                    
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
@@ -84,24 +86,24 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <a href="{{ url_for('todos.delete_todo', id=todo.id) }}" type="delete" class="btn btn-danger">Delete</a>
+                            <a href="{{ url_for('todos.delete_todo', id=todo.id) }}" type="delete" class="btn btn-outline-danger">Delete</a>
                         </div>
                     </div>
                 </div>
             </div>
         {% endfor %}
         {% if true in todos|map(attribute="done") %}
-        <h2 class="title" style="font-size: 40pt; color: white;">
+        <h2 class="title" style="font-size: 30pt; color: white;">
             Completed
         </h2>
         {% endif %}
         {% for todo in todos %}
             {% if todo.done == true %}
             <ul class="list-group list-group-flush">
-                <li class="list-group-item" style="font-size: 30pt; color: white; background-color: transparent;">
+                <li class="list-group-item" style="font-size: 20pt; color: white; background-color: transparent;">
                     <a href="{{ url_for('todos.uncheck_todo', id=todo.id) }}" type="uncheck" ><i class="fas fa-check-circle"></i></a> 
-                    <a href="#editModal{{ todo.id }}" style="text-decoration: line-through; color: white" data-toggle="modal" data-target="#editModal{{ todo.id }}" type="edit"0>{{ todo.text}}</a>
-                    <button type="button" class="btn float-ribtn float-right login_btn" data-toggle="modal" data-target="#deleteModal{{ todo.id }}">Delete</button>
+                    <a href="#editModal{{ todo.id }}" style="text-decoration: line-through; color: white" data-toggle="modal" data-target="#editModal{{ todo.id }}" type="edit">{{ todo.text}}</a>
+                    <button type="button" class="btn float-ribtn float-right btn-outline-primary" data-toggle="modal" data-target="#deleteModal{{ todo.id }}">Delete</button>
                 </li>
             </ul>
             {% endif %}
@@ -109,7 +111,7 @@
                 <div class="modal fade" id="editModal{{ todo.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form method="POST" action="">
+                            <form method="POST" action="{{ url_for('todos.edit_todo', id=todo.id) }}">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Update todo?</h5>
                                     {% if form.text.errors %}
@@ -146,7 +148,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <a href="{{ url_for('todos.delete_todo', id=todo.id) }}" type="delete" class="btn btn-danger">Delete</a>
+                            <a href="{{ url_for('todos.delete_todo', id=todo.id) }}" type="delete" class="btn btn-outline-danger">Delete</a>
                         </div>
                     </div>
                 </div>
