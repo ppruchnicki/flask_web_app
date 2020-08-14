@@ -53,7 +53,7 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password, password)
 
-    def generate_confirmation_token(self, email, expires_sec=3600):
+    def generate_confirmation_token(email, expires_sec=3600):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
         return s.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
 
