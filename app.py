@@ -77,7 +77,7 @@ class MyAdminIndexView(AdminIndexView):
         return redirect(url_for('main.index'))
 
 
-admin = Admin(app, index_view=MyAdminIndexView(), name='Home', template_mode='bootstrap3')
+admin = Admin(app, index_view=MyAdminIndexView(), name='Admin', template_mode='bootstrap3')
 
 from flask_web_app import admin
 

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>CloudApp</title> 
+    <title>{% block title %}{% endblock %} - Flask App</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -45,7 +45,7 @@
         {% endif %}
       </ul>
       {% if not current_user.is_authenticated %}
-        <ul class="nav justify-content-end">
+        <ul class="navbar-nav justify-content-end">
           <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
           </li>
@@ -55,7 +55,7 @@
         </ul>
       {% endif %}
       {% if current_user.is_authenticated %}
-        <ul class="nav justify-content-end">
+        <ul class="navbar-nav justify-content-end">
           <li class="nav-item">
               <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
           </li>

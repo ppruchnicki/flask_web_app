@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %} 
+Todos
+{% endblock %}
+
 {% block content %}
 <div class="container">
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -38,7 +42,7 @@
                 <li class="list-group-item" style="font-size: 20pt; color: white; background-color: transparent;">
                     <a href="{{ url_for('todos.check_todo', id=todo.id) }}" type="check"><i class="far fa-circle"></i></a> 
                     <a href="#editModal{{ todo.id }}" style="text-decoration: none; color: white;" data-toggle="modal" data-target="#editModal{{ todo.id }}" type="edit" >{{ todo.text}}</a>
-                    <button type="button" class="btn float-ribtn float-right btn-outline-primary" data-toggle="modal" data-target="#deleteModal{{ todo.id }}">Delete</button>
+                    <button type="button" class="btn float-ribtn float-right btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ todo.id }}">Delete</button>
                 </li>
             </ul>
             {% endif %}
@@ -103,7 +107,7 @@
                 <li class="list-group-item" style="font-size: 20pt; color: white; background-color: transparent;">
                     <a href="{{ url_for('todos.uncheck_todo', id=todo.id) }}" type="uncheck" ><i class="fas fa-check-circle"></i></a> 
                     <a href="#editModal{{ todo.id }}" style="text-decoration: line-through; color: white" data-toggle="modal" data-target="#editModal{{ todo.id }}" type="edit">{{ todo.text}}</a>
-                    <button type="button" class="btn float-ribtn float-right btn-outline-primary" data-toggle="modal" data-target="#deleteModal{{ todo.id }}">Delete</button>
+                    <button type="button" class="btn float-ribtn float-right btn-outline-danger" data-toggle="modal" data-target="#deleteModal{{ todo.id }}">Delete</button>
                 </li>
             </ul>
             {% endif %}

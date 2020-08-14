@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block title %} 
+Notes
+{% endblock %}
+
 {% block content %}
 <div class="container">
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -12,16 +16,16 @@
         {% endif %}
     {% endwith %}
     <div class="card-body">
-        <a href="{{ url_for('notes.add_note') }}" type="add" class="btn btn-outline-info btn-lg btn-block">Add</a>
+        <a href="{{ url_for('notes.add_note') }}" type="add" class="btn btn-outline-primary btn-lg btn-block">Add</a>
     </div>
     <div class="card-body">    
-        <ul>
+        <ul style="list-style-type: none;">
             {% for note in notes %}
-                <li style="font-size: 30pt; color: white"> {{ note.title}}
-                    <button type="button" class="btn float-ribtn float-right login_btn" data-toggle="modal" data-target="#deleteModal{{ note.id }}">Delete</button>
-                    <a href="{{ url_for('notes.edit_note', id=note.id) }}" type="edit" class="btn float-ribtn float-right login_btn">Edit</a>
+                <li style="font-size: 4vw; color: white; padding-bottom: 2rem;"> 
+                    <a href="{{ url_for('notes.edit_note', id=note.id) }}" style="text-decoration: none; color: white;" >{{ note.title}}</a>
+                    <button type="button" class="btn float-ribtn float-right btn-outline-danger btn-responsive" data-toggle="modal" data-target="#deleteModal{{ note.id }}">Delete</button>
+                    <a href="{{ url_for('notes.edit_note', id=note.id) }}" type="edit" class="btn float-ribtn float-right btn-outline-primary btn-space btn-responsive">Edit</a>   
                 </li>
-                <li style="font-size: 20pt; color: white"> {{ note.text}}</li>
                 <!-- Modal -->
                     <div class="modal fade" id="deleteModal{{ note.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -34,7 +38,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <a href="{{ url_for('notes.delete_note', id=note.id) }}" type="delete" class="btn btn-danger">Delete</a>
+                                    <a href="{{ url_for('notes.delete_note', id=note.id) }}" type="delete" class="btn btn-outline-danger">Delete</a>
                                 </div>
                             </div>
                         </div>

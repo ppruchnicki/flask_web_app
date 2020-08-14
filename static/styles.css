@@ -7,7 +7,6 @@ background-color: darkslateblue;
 height: 100%;
 }
 
-
 .alert_card_sign_up{
 height: 50px;
 margin-top: -50px;
@@ -39,6 +38,9 @@ text-align: center;
 background-color: rgba(0,0,0,0.5)
 }
 
+.btn-space {
+    margin-right: 5px;
+}
 
 .container{
 height: 100%;
@@ -79,32 +81,27 @@ border-radius: .25rem;
 
 .card_email{
 height: 360px;
-margin-top: auto;
+margin-top: 5%;
 margin-bottom: auto;
 width: 400px;
 background-color: rgba(0,0,0,0.5) !important;
 border-radius: .25rem;  
 }
 
-.card_password{
-height: 440px;
-margin-top: auto;
+.card_password{   
+height: 450px;
+margin-top: 5%;
 margin-bottom: auto;
 width: 400px;
 background-color: rgba(0,0,0,0.5) !important;
 border-radius: .25rem;  
 }
-
 
 .card-header h3{
 color: white;
 }
 
 .dropdown-menu-custom{
-position: absolute;
-top: 5rem;
-left: 5rem;
-z-index: 1000;
 display: inherit;
 float: left;
 min-width: 10rem;
@@ -199,5 +196,5 @@ margin-left: 4px;
 
 .text-muted-custom-login{
     color: white;
-    padding-left: 1rem;
+    padding-left: 0.5rem;
 }

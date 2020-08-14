@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, ValidationError, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 from flask_web_app.models import User
 
@@ -36,7 +36,7 @@ class UpdateTodosForm(FlaskForm):
 class NotesForm(FlaskForm):
     title = StringField('Title',
                            validators=[DataRequired(), Length(min=2, max=100)])
-    text = StringField('Text',
+    text = TextAreaField('Text',
                             validators=[DataRequired(), Length(min=2, max=1000)])
     submit = SubmitField('Submit')
 
