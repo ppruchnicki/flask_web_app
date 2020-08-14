@@ -5,7 +5,7 @@ Uncofirmed
 {% endblock %}
 
 {% block content %}
-<h1>Welcome!</h1>
+<h1 style="color: white;">Welcome!</h1>
 <br>
 <div class="card-body">
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -18,7 +18,7 @@ Uncofirmed
         {% endif %}
     {% endwith %}
 </div>
-<p>You have not confirmed your account. Please check your inbox (and your spam folder) - you should have received an email with a confirmation link.</p>
-<p>Didn't get the email? <a href="{{ url_for('auth.resend_confirmation') }}">Resend</a>.</p>
+<p style="color: white;">You have not confirmed your account. Please check your inbox (and your spam folder) - you should have received an email with a confirmation link.</p>
+<p >Didn't get the email? <a href="{{ url_for('auth.resend_confirmation') }}">Resend</a>.</p>
 
 {% endblock %}
