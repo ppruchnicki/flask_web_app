@@ -79,7 +79,7 @@ class User(UserMixin, db.Model):
         db.session.commit()
         return True
 
-    def confirm_token(self, token):
+    def confirm_token(token):
         s = Serializer(app.config['SECRET_KEY'])
         try:
             email = s.loads(
