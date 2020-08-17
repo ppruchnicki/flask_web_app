@@ -97,6 +97,15 @@ background-color: rgba(0,0,0,0.5) !important;
 border-radius: .25rem;  
 }
 
+.card_reset{
+    height: 260px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
+    border-radius: .25rem;  
+    }
+
 .card-header h3{
 color: white;
 }

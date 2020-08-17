@@ -12,6 +12,29 @@ Simple demo app with basic CRUD functionality to handle notes/posts or todos log
 * Basic CRUD functionality for notes and todos
 * Profile managment changing email and password using mail authorization with tokens
 
+## Demos
+
+Notes CRUD Page:
+
+![Notes](readme_media/notes_crud.gif "Notes")
+
+Todos CRUD Page:
+
+![Todos](readme_media/todos_crud.gif "Todos")
+
+
+User Editing Page:
+
+![edit user](readme_media/profile_tab.gif "edituser")
+
+Admin Page:
+
+![admin](readme_media/admin.gif "admin")
+
+Registering User:
+
+![registering](readme_media/registration.gif "register")
+
 ## Quick start
 1. Install all dependencies in virtual environment `pipenv install`
 2. Setup environment variables: `SECRET_KEY, MAIL_USER, MAIL_PASSWORD, SECURITY_PASSWORD_SALT'` (default email provider - gmail)
