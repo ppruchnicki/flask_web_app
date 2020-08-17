@@ -1,3 +1,17 @@
+## Flask App
+Simple demo app with basic CRUD functionality to handle notes/posts or todos logic.
+
+## What's included?
+* Blueprints
+* Flask-Admin micro-framework for user and permissions management and CRUD functionality 
+* Flask-Login for user authorization
+* Flask-SQLAlchemy for databases
+* Flask-Migrate for managing changes of database structure
+* Flask-WTF for forms
+* Flask-Mail for sending confirmation emails, reseting password
+* Basic CRUD functionality for notes and todos
+* Profile managment changing email and password using mail authorization with tokens
+
 ## Quick start
 1. Install all dependencies in virtual environment `pipenv install`
 2. Setup environment variables: `SECRET_KEY, MAIL_USER, MAIL_PASSWORD, SECURITY_PASSWORD_SALT'` (default email provider - gmail)
