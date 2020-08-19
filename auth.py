@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_web_app.app import db, mail
-from flask_web_app.models import User
+from .app import db, mail
+from .models import User
 from flask_login import login_user, logout_user, login_required, current_user
-from flask_web_app.decorators import is_confirmed
-from flask_web_app.forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
+from .decorators import is_confirmed
+from .forms import RegistrationForm, LoginForm, RequestResetForm, ResetPasswordForm
 from flask_mail import Message
 import datetime
 

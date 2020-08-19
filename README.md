@@ -42,7 +42,8 @@ Registering User:
 4. First create db  `python3 app.py db init`
 5. Create migrations `python3 app.py db migrate`
 6. Upgrade db `python3 app.py db upgrade`
-7. `flask run`
+7. `FLASK_APP=flask_web_app flask run`
+8. App is natively created with Admin user `ad@min.com` password `Password1`, recommended to change password straightaway
 
 ## Upgrade db model
 If you want to upgrade previosly created and used db ( after changes to the structure).
@@ -50,3 +51,6 @@ If you want to upgrade previosly created and used db ( after changes to the stru
 2. `python3 app.py db migrate`
 3. `python3 app.py db upgrade`
 4. `flask run`
+
+## License
+[MIT License](LICENSE.md)

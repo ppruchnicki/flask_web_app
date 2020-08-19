@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from flask_web_app.app import db
-from flask_web_app.models import Todo
-from flask_web_app.decorators import check_confirmed
+from .app import db
+from .models import Todo
+from .decorators import check_confirmed
 from flask_login import login_required, current_user
-from flask_web_app.forms import TodosForm
+from .forms import TodosForm
 
 todos = Blueprint('todos', __name__)
 

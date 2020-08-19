@@ -1,8 +1,4 @@
 from flask import Flask, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
-from flask_script import Manager
-from flask_migrate import Migrate, MigrateCommand
 from flask_login import UserMixin, current_user
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import BadSignature, SignatureExpired
@@ -11,7 +7,8 @@ from flask_admin import Admin, AdminIndexView
 from flask_admin.menu import MenuLink
 from flask_admin.contrib.sqla import ModelView
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_web_app.app import db, login_manager, app
+from .app import db, app
+from .login import login_manager
 import os
 import datetime
 

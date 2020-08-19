@@ -3,8 +3,8 @@ from flask_login import UserMixin, current_user
 from flask_admin import Admin, AdminIndexView
 from flask_admin.menu import MenuLink
 from flask_admin.contrib.sqla import ModelView
-from flask_web_app.app import db, admin
-from flask_web_app.models import User, Note, Todo
+from .app import db, admin
+from .models import User, Note, Todo
 
 class MyUserView(ModelView):
     form_columns = ['name', 'email', 'password', 'admin']
