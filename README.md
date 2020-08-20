@@ -39,17 +39,17 @@ Registering User:
 1. Install all dependencies in virtual environment `pipenv install`
 2. Setup environment variables: `SECRET_KEY, MAIL_USER, MAIL_PASSWORD, SECURITY_PASSWORD_SALT'` (default email provider - gmail)
 3. Run virtual environment `pipenv shell`
-4. First create db  `python3 app.py db init`
-5. Create migrations `python3 app.py db migrate`
-6. Upgrade db `python3 app.py db upgrade`
-7. `FLASK_APP=flask_web_app flask run`
-8. App is natively created with Admin user `ad@min.com` password `Password1`, recommended to change password straightaway
+4. First create db  `python3 manage.py db init`
+5. Create migrations `python3 manage.py db migrate`
+6. Upgrade db `python3 manage.py db upgrade`
+7. Creates admin user `python3 -c 'from manage import create_admin; create_admin()` natively created with user `ad@min.com` password `Password1`, recommended to change password straightaway
+8. `FLASK_APP=flask_web_app flask run`
 
 ## Upgrade db model
 If you want to upgrade previosly created and used db ( after changes to the structure).
 1. Close the app
-2. `python3 app.py db migrate`
-3. `python3 app.py db upgrade`
+2. `python3 manage.py db migrate`
+3. `python3 manage.py db upgrade`
 4. `flask run`
 
 ## License
