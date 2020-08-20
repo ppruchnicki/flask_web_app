@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
-from .app import db, mail
-from .decorators import check_confirmed
+from app import db, mail
+from decorators import check_confirmed
 from flask_login import login_required, current_user
-from .models import User
-from .forms import ChangePasswordForm, ChangeEmailForm
+from models import User
+from forms import ChangePasswordForm, ChangeEmailForm
 from flask_mail import Message
 import datetime
 

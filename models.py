@@ -7,8 +7,8 @@ from flask_admin import Admin, AdminIndexView
 from flask_admin.menu import MenuLink
 from flask_admin.contrib.sqla import ModelView
 from werkzeug.security import generate_password_hash, check_password_hash
-from .app import db, app
-from .login import login_manager
+from app import db, app
+from login import login_manager
 import os
 import datetime
 
@@ -101,18 +101,6 @@ class User(UserMixin, db.Model):
             return None
         return User.query.get(user_id)
 
-if not User.query.filter(User.email == 'ad@min.com').first():
-
-        user = User(
-            email='ad@min.com',
-            password= generate_password_hash('Password1', method='sha256'),
-            name='Admin',
-            admin = True,
-            confirmed = True,
-            confirmed_on = datetime.datetime.now()
-        )
-        db.session.add(user)
-        db.session.commit()
 
 @login_manager.user_loader
 def load_user(user_id):

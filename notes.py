@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from .app import db
-from .models import Note
-from .decorators import check_confirmed
+from app import db
+from models import Note
+from decorators import check_confirmed
 from flask_login import login_required, current_user
-from .forms import NotesForm
+from forms import NotesForm
 
 notes = Blueprint('notes', __name__)
 
