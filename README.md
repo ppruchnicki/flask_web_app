@@ -42,8 +42,8 @@ Registering User:
 4. First create db  `python3 manage.py db init`
 5. Create migrations `python3 manage.py db migrate`
 6. Upgrade db `python3 manage.py db upgrade`
-7. Creates admin user `python3 -c 'from manage import create_admin; create_admin()` natively created with user `ad@min.com` password `Password1`, recommended to change password straightaway
-8. `FLASK_APP=flask_web_app flask run`
+7. Creates admin user `python3 -c 'from manage import create_admin; create_admin()'` natively created with user `ad@min.com` password `Password1`, recommended to change password straightaway
+8. `flask run`
 
 ## Upgrade db model
 If you want to upgrade previosly created and used db ( after changes to the structure).
