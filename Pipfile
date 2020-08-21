@@ -8,6 +8,7 @@ flask-mail = "*"
 flask-wtf = "*"
 email-validator = "*"
 flask-admin = "*"
+python-decouple = "*"
 
 [dev-packages]
 Flask = "*"
