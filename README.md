@@ -37,7 +37,7 @@ Registering User:
 
 ## Quick start
 1. Install all dependencies in virtual environment `pipenv install`
-2. Setup environment variables in example.env: `SECRET_KEY, MAIL_USER, MAIL_PASSWORD, SECURITY_PASSWORD_SALT` (default email provider - gmail) 
+2. Setup environment variables in example.env and rename it to just '.env' : `SECRET_KEY, MAIL_USER, MAIL_PASSWORD, SECURITY_PASSWORD_SALT` (default email provider - gmail) 
 3. Run virtual environment `pipenv shell`
 4. First create db  `python3 manage.py db init`
 5. Create migrations `python3 manage.py db migrate`
