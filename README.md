@@ -53,4 +53,4 @@ If you want to upgrade previosly created and used db ( after changes to the stru
 4. `flask run`
 
 ## License
-[MIT License](LICENSE.md)
+[MIT License](LICENSE)
